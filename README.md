@@ -1,2 +1,7 @@
-# Text-Classification-
-Using RNN, LSTM , GRUs
+# Text-Classification :smiley:
+
+## Requirements
+
+## Usage
+
+## Todo
