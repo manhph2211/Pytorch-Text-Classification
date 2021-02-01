@@ -6,18 +6,24 @@ from torch import nn
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 from sklearn.metrics import precision_score, f1_score, recall_score
-from dataloader import loadData,splitData,splitBatch
+from dataloader import loadData,splitData,splitBatch,makeDataset
 
 
 data,labels,EMBEDDING_SIZE=loadData()   
-print("...")
+print("Loading...")
 BATCH_SIZE=20  
-data_,labels_=splitBatch(data,labels,BATCH_SIZE)     
-#X_train,y_train,X_val,y_val,X_test,y_test=splitData(data,labels)
-   
-  
-print(data_.shape)
-   
+#data_,labels_=splitBatch(data,labels,BATCH_SIZE)     
+X_train,y_train,X_val,y_val,X_test,y_test=splitData(data,labels)
+
+X_train_val, X_test, y_train_val, y_test = train_test_split(corpus, types, test_size=0.2, random_state=2000)
+X_train, X_val, y_train, y_val = train_test_split(X_train_val, y_train_val, test_size=0.4, random_state=2000)
+
+train_dataset = makeDataset(X_train, y_train)
+train_dataloader = DataLoader(train_dataset, batch_size=BATCH_SIZE)
+val_dataset = makeDataset(X_val, y_val)
+val_dataloader = DataLoader(val_dataset, batch_size=BATCH_SIZE)
+test_dataset = makeDataset(X_test, y_test)
+test_dataloader = DataLoader(test_dataset, batch_size=len(test_dataset))
 MODEL_SAVE_PATH = './rnn_model.pt'
 model = RNN(input_size=300, output_size=6, hidden_dim=64, n_layers=1)
 
@@ -45,23 +51,23 @@ for epoch in range(N_EPOCHS):
         optimizer.step()
     train_losses.append(sum(train_loss) / len(train_loss))
 
-    val_loss = []
-    for X_val_batch, y_val_batch in tqdm(val_dataloader):
-        out = model(X_val_batch)
-        loss = loss_fn(out, y_val_batch)
-        train_loss.append(loss.item())
-    val_losses.append(sum(train_loss) / len(train_loss))
-    if best_val_loss > val_losses[-1]:
-        best_val_loss = val_losses[-1]
-        torch.save(model.state_dict(), MODEL_SAVE_PATH)
+    # val_loss = []
+    # for X_val_batch, y_val_batch in tqdm(val_dataloader):
+    #     out = model(X_val_batch)
+    #     loss = loss_fn(out, y_val_batch)
+    #     train_loss.append(loss.item())
+    # val_losses.append(sum(train_loss) / len(train_loss))
+    # if best_val_loss > val_losses[-1]:
+    #     best_val_loss = val_losses[-1]
+    #     torch.save(model.state_dict(), MODEL_SAVE_PATH)
 
 print("Train loss: ", train_losses)
-print("Validation loss: ", val_losses)
+#print("Validation loss: ", val_losses)
 
 x = np.arange(len(train_losses))
 fig, ax = plt.subplots()
 ax.plot(x, train_losses, label='Train loss')
-ax.plot(x, val_losses, label='Validation loss')
+#ax.plot(x, val_losses, label='Validation loss')
 ax.legend()
 plt.show()
 
