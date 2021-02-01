@@ -34,6 +34,7 @@ class QuestionClassifier(nn.Module):
         super(QuestionClassifier,self).__init__()
         self.bert=BertModel.from_pretrained(pretrained_model_name)
         self.dense=nn.Linear(self.bert.config.hidden_size,n_classes)
+        
     def forward(self,input_ids):
         hidden_states,pooled_output=self.bert(input_ids=input_ids)
         sequence_output_cls=hidden_states[0,:,0]

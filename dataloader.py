@@ -3,7 +3,7 @@ from preprocessing import encodingData,getRidOfXXX,getMaxLen,getDic,padding,enco
 from utils import readCSV, readModel, saveVocab
 from sklearn.model_selection import train_test_split
 import torch
-
+from torch.utils.data import Dataset,Dataloader
 
 def loadData(csv_path='./Question_Classification_Dataset.csv',model_path='./GoogleNews-vectors-negative300.bin'):
 	
@@ -43,4 +43,16 @@ def splitBatch(data,targets,BATCH_SIZE):
         return torch.tensor(_data),torch.tensor(_targets,dtype=torch.long)
 
 
+class makeDataset(Dataset):
+    def __init__(self,data,labels):
+        self.data=data
+        self.labels=labels
+        self.n_samples=data.shape[0]
         
+    def __getitem__(self,idx):
+        return self.data[idx],self.labels[idx]
+
+    
+    def __len__(self):
+        return len(self.n_samples)
+    

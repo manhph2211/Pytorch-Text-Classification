@@ -10,7 +10,6 @@ def readCSV(path):
 	le = preprocessing.LabelEncoder()
 	data_texts = data_df['Questions'].to_list()
 	labels = le.fit_transform(data_df['Category0'])
-
 	return data_texts,labels
 
 
