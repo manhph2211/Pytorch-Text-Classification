@@ -57,13 +57,3 @@ def padding(data_texts_1,max_len):
         new_text='<PAD> '*delta+text
         new_data.append(new_text)
     return new_data
-
-
-def encodingData(data_texts_2,vocab):
-  data=[]
-  for text in data_texts_2:
-    text_to_vec=[]
-    for word in text.split():
-      text_to_vec.append(vocab[word])
-    data.append(text_to_vec)
-  return data
