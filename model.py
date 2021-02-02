@@ -22,8 +22,6 @@ class RNN(nn.Module):
         #print(out.size())
         out = out[:, -1, :]
         out = self.linear1(out)
-        out = self.classifier(out)
-
         return out
 
 
