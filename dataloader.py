@@ -3,19 +3,26 @@ from preprocessing import encodingData,getRidOfXXX,getMaxLen,getDic,padding,enco
 from utils import readCSV, readModel, saveVocab
 from sklearn.model_selection import train_test_split
 import torch
-from torch.utils.data import Dataset,Dataloader
+from torch.utils.data import Dataset,DataLoader
 
 def loadData(csv_path='./Question_Classification_Dataset.csv',model_path='./GoogleNews-vectors-negative300.bin'):
 	
 	data_texts,labels=readCSV(csv_path)
+	print("1")
 	model=readModel(model_path)
+	print("2")
 	data_texts_1=getRidOfXXX(data_texts,model)
+	print("3")
 	max_len=getMaxLen(data_texts_1)
+	print("4")
 	vocab,EMBEDDING_SIZE=getDic(data_texts_1,model)
+	print("5")
 	data_texts_2=padding(data_texts_1,max_len)
+	print("6")
 	data=torch.tensor(encodingData(data_texts_2,vocab))
+	print("7")
 	targets=torch.tensor(labels,dtype=torch.long)
-
+	print("8")
 	return data,targets,EMBEDDING_SIZE
 
 
