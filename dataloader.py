@@ -19,10 +19,10 @@ def loadData(csv_path='./Question_Classification_Dataset.csv',model_path='./Goog
 	return data,targets,EMBEDDING_SIZE
 
 
-def splitData(data,targets):
-	X_train_val, X_test, y_train_val, y_test = train_test_split(data, targets, test_size=0.2, random_state=2000)
-	X_train, X_val, y_train, y_val = train_test_split(X_train_val, y_train_val, test_size=0.4, random_state=2000)
-	return X_train,y_train,X_val,y_val,X_test,y_test
+# def splitData(data,targets):
+# 	X_train_val, X_test, y_train_val, y_test = train_test_split(data, targets, test_size=0.2, random_state=2000)
+# 	X_train, X_val, y_train, y_val = train_test_split(X_train_val, y_train_val, test_size=0.4, random_state=2000)
+# 	return X_train,y_train,X_val,y_val,X_test,y_test
 
 
 # def splitBatch(data,targets,BATCH_SIZE):
