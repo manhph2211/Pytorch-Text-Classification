@@ -13,11 +13,6 @@ def readCSV(path):
 	return data_texts,labels
 
 
-def readModel(path):
-	model = KeyedVectors.load_word2vec_format(path, binary=True)
-	return model
-
-
 def saveVocab(path,data_texts_1,model):
     vocab,EMBEDDING_SIZE = getDic()
     with open(path,'w'):

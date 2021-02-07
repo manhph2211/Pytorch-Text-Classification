@@ -2,7 +2,7 @@ import torch
 import numpy as np
 from torch import nn
 import matplotlib.pyplot as plt
-from dataloader import loadData,splitData,makeDataset
+from dataloader import loadData,makeDataset
 from torch.utils.data import Dataset
 from torch.utils.data.dataloader import DataLoader
 from model import RNN,LSTM

@@ -1,15 +1,16 @@
 import numpy as np
 from preprocessing import getRidOfXXX,getMaxLen,getDic,padding
-from utils import readCSV, readModel, saveVocab,encodingData
+from utils import readCSV, saveVocab,encodingData
 from sklearn.model_selection import train_test_split
 import torch
 from torch.utils.data import Dataset,DataLoader
 from utils import encodingData
+from gensim.models import KeyedVectors
 
 
 def loadData(csv_path='./Question_Classification_Dataset.csv',model_path='./GoogleNews-vectors-negative300.bin'):
 	data_texts,labels=readCSV(csv_path)
-	model=readModel(model_path)
+	model = KeyedVectors.load_word2vec_format(model_path, binary=True)
 	data_texts_1=getRidOfXXX(data_texts,model)
 	max_len=getMaxLen(data_texts_1)
 	vocab,EMBEDDING_SIZE=getDic(data_texts_1,model)
