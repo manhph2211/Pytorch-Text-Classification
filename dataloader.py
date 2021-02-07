@@ -1,9 +1,11 @@
 import numpy as np
-from preprocessing import encodingData,getRidOfXXX,getMaxLen,getDic,padding
+from preprocessing import getRidOfXXX,getMaxLen,getDic,padding
 from utils import readCSV, readModel, saveVocab,encodingData
 from sklearn.model_selection import train_test_split
 import torch
 from torch.utils.data import Dataset,DataLoader
+from utils import encodingData
+
 
 def loadData(csv_path='./Question_Classification_Dataset.csv',model_path='./GoogleNews-vectors-negative300.bin'):
 	data_texts,labels=readCSV(csv_path)

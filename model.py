@@ -25,6 +25,21 @@ class RNN(nn.Module):
         return out
 
 
+class LSTM(nn.Module):
+    def __init__(self, input_size, output_size, hidden_dim, n_layers):
+        super(LSTMs, self).__init__()
+        self.rnn = nn.LSTM(input_size=input_size, hidden_size=hidden_dim, num_layers=n_layers, nonlinearity='tanh')
+        self.linear1 = nn.Linear(in_features=hidden_dim, out_features=output_size)
+        self.classifier = nn.Softmax()
+
+    def forward(self, X):
+        out,hidden = self.rnn(X)
+        #print(out.size())
+        out = out[:, -1, :]
+        out = self.linear1(out)
+        return out
+
+
 class QuestionClassifier(nn.Module):
     def __init__(self,n_classes,pretrained_model_name='bert-base-uncased'):
         super(QuestionClassifier,self).__init__()
@@ -40,3 +55,5 @@ class QuestionClassifier(nn.Module):
         x=self.dropout(x)
         x=self.out_proj(x)
         return x
+
+
