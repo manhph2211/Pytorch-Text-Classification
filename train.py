@@ -18,7 +18,7 @@ train_dataset = makeDataset(X_train, y_train)
 train_dataloader = DataLoader(train_dataset, batch_size=BATCH_SIZE)
 val_dataset = makeDataset(X_val, y_val)
 val_dataloader = DataLoader(val_dataset, batch_size=BATCH_SIZE)
-model =  LSTM(input_size=300, output_size=6, hidden_dim=64, n_layers=1)
+model =  LSTM(input_size=300, output_size=6, hidden_dim=64, n_layers=2)
 MODEL_SAVE_PATH = './rnn_model.pt'
 
 lr = 0.0001
