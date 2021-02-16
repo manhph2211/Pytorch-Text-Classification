@@ -13,7 +13,6 @@ print("Loading...")
 BATCH_SIZE=20  
 #data_,labels_=splitBatch(data,labels,BATCH_SIZE)     
 X_train,y_train,X_val,y_val,X_test,y_test=splitData(data,labels)
-BATCH_SIZE=20
 train_dataset = makeDataset(X_train, y_train)
 train_dataloader = DataLoader(train_dataset, batch_size=BATCH_SIZE)
 val_dataset = makeDataset(X_val, y_val)
